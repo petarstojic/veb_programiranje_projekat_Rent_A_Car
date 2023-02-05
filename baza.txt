@@ -1,0 +1,50 @@
+create table automobili(
+	id int primary key identity(1,1),
+	marka_i_model nvarchar(100),
+	karoserija nvarchar(100),
+	tip_menjaca nvarchar(50),
+	broj_brzina int,
+	broj_dostupnih int
+)
+insert into automobili values ('Volkswagen Golf', 'limuzina', 'manuelni', 6, 10)
+insert into automobili values ('Reanult Clio', 'hecbek', 'manuelni', 5, 12)
+insert into automobili values ('Mini Cooper S', 'hecbek', 'manuelni', 5, 17)
+insert into automobili values ('Fiat Punto', 'hecbek', 'manuelni', 5, 23)
+insert into automobili values ('Range Rover Evoque', 'SUV', 'automatik', 7, 4)
+select * from automobili
+
+create table lokacije(
+	id int primary key identity(1,1),
+	naziv nvarchar(200),
+	adresa nvarchar(200),
+)
+insert into lokacije values('Aerodrom Nikola Tesla', 'Aerodrom Beograd 59')
+insert into lokacije values('BAS - Beogradska Autobuska Stanica', 'Zeleznicka 4')
+insert into lokacije values('Zeleznicka Stanica Novi Sad', 'Bulevar Jase Tomica 4')
+select * from lokacije
+
+create table rezervacije(
+	id int primary key identity(1,1),
+	ime nvarchar(100),
+	prezime nvarchar(100),
+	id_rezervisanog_auta int foreign key references automobili(id),
+	id_lokacije int foreign key references lokacije(id)
+)
+insert into rezervacije values('Petar', 'Petrovic', 1, 2)
+insert into rezervacije values('Zika', 'Zikic', 2, 2)
+insert into rezervacije values('Marko', 'Markovic', 4, 1)
+insert into rezervacije values('Petar', 'Markovic', 3, 3)
+insert into rezervacije values('Marko', 'Petrovic', 4, 1)
+select * from rezervacije
+
+create table prijave(
+	id int primary key identity(1,1),
+	username nvarchar(100),
+	pasword nvarchar(100),
+	adminr int
+)
+insert into prijave values('admin', 'admin', 1)
+insert into prijave values('pera', '1234', 0)
+insert into prijave values('mika', 'asdf', 0)
+select * from prijave
+select pasword from prijave where username = 'admin'
